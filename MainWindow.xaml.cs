@@ -64,20 +64,35 @@ namespace Notebook
 
         private void CreateText(object sender, RoutedEventArgs e)
         {
-            var popup = new CreateTextWindow
+            var popup = new FormWindow
             {
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Owner = this
             };
             popup.ShowDialog();
-            string title = popup.Title;
-            if (title != "Default")
+            string title = popup.TextForm;
+            if (popup.Successful && title != "Default")
             {
                 string path = this.mainPath + "\\" + title + ".txt";
                 File.WriteAllText(path, "");
                 this.OpenNotepad(path);
             }
             
+        }
+
+        private void RenameNote(object sender, RoutedEventArgs e)
+        {
+            var popup = new FormWindow
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = this
+            };
+            popup.ShowDialog();
+            string title = popup.TextForm;
+            if (popup.Successful && title != "Default")
+            {
+               File.Move(this.currentFilePath,this.mainPath + "\\" + title + ".txt");
+            }
         }
 
         private void EditText(object sender, RoutedEventArgs e)
@@ -95,7 +110,6 @@ namespace Notebook
             fileDialog.ShowDialog();
             this.CopyFiles(fileDialog.FileNames);
         }
-
 
         private void CopyFiles(string[] filePaths)
         {

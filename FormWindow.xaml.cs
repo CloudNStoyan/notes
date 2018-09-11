@@ -4,11 +4,11 @@ using System.Windows.Input;
 namespace Notebook
 {
     /// <summary>
-    /// Interaction logic for CreateTextWindow.xaml
+    /// Interaction logic for FormWindow.xaml
     /// </summary>
-    public partial class CreateTextWindow : Window
+    public partial class FormWindow : Window
     {
-        public string Title
+        public string TextForm
         {
             get
             {
@@ -21,14 +21,18 @@ namespace Notebook
             }
         }
 
-        public CreateTextWindow()
+        public bool Successful { get; set; }
+
+        public FormWindow()
         {
             this.InitializeComponent();
+            this.Successful = false;
             this.TitleInput.Focus();
         }
 
         private void Save()
         {
+            this.Successful = true;
             this.Close();
         }
 
