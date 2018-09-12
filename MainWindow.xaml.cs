@@ -19,6 +19,7 @@ namespace Notebook
         private readonly string mainPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Notes";
 
         private string currentFilePath = string.Empty;
+        private string  
 
         public MainWindow()
         {
@@ -32,8 +33,8 @@ namespace Notebook
                 var newScroller = new ScrollViewer();
                 var newStackPanel = new StackPanel { Name = "ExpanderPanel" };
 
-                var allNotes = new DirectoryInfo(this.mainPath).GetFiles().Where(x => x.Extension == ".txt")
-                    .ToDictionary(x => new [] { x.Name.Replace(x.Extension, string.Empty) , x.FullName}, x => File.ReadAllText(x.FullName));
+                var allNotes = new DirectoryInfo(this.mainPath).GetFiles().Where(x => x.Extension == ".txt" || x.Extension == ".encrypt")
+                    .ToDictionary(x => new [] { x.Name.Replace(x.Extension, string.Empty) , x.FullName, x.Extension}, x => File.ReadAllText(x.FullName));
 
 
                 foreach (var note in allNotes)
@@ -41,7 +42,17 @@ namespace Notebook
                     var textBlox = new TextBlock { Text = note.Key[0] };
                     textBlox.PreviewMouseDown += (o, e) =>
                     {
-                        this.MainTextBlock.Text = note.Value;
+                        if (note.Key[2] == ".encrypt")
+                        {
+                            this.MainTextBlock.Text = "Encrypted..";
+
+                            this.DecryptBtn.IsEnabled = true;
+                            this.MainTextBlock.Text = note.Value;
+                        }
+                        else
+                        {
+                            this.MainTextBlock.Text = note.Value;
+                        }
                         
                         this.MainTextBlock.ScrollToLine(0);
 
@@ -59,6 +70,11 @@ namespace Notebook
 
                 this.noteMenuDropDown.Content = newScroller;
             };
+
+        }
+
+        private void DecryptNote(object sender, RoutedEventArgs e)
+        {
 
         }
 

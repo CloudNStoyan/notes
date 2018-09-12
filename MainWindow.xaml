@@ -17,6 +17,7 @@
         <Button x:Name="EditBtn" Content="Edit" HorizontalAlignment="Left" Margin="701,37,0,0" VerticalAlignment="Top" Width="75" Click="EditText"/>
         <Button x:Name="ImportBtn" Content="Import" HorizontalAlignment="Left" Margin="701,62,0,0" VerticalAlignment="Top" Width="75" Click="ImportNotes"/>
         <Button x:Name="RenameBtn" Content="Rename" HorizontalAlignment="Left" Margin="701,87,0,0" VerticalAlignment="Top" Width="75" Click="RenameNote"/>
+        <Button x:Name="DecryptBtn" Content="Decrypt" HorizontalAlignment="Left" Margin="701,112,0,0" VerticalAlignment="Top" Width="75" Click="DecryptNote" IsEnabled="False"/>
 
     </Grid>
 </Window>
